@@ -55,6 +55,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
     protected void onStart(){
         super.onStart();
         carregarListaDeGeneros();
+        carregarListaDeLivros();
     }
 
     private void carregarListaDeGeneros() {
@@ -78,6 +79,15 @@ public class MainActivity extends Activity implements View.OnClickListener{
         });
     }
 
+    private void carregarListaDeLivros() {
+        progressLivros.setVisibility(ProgressBar.GONE);
+    }
+
+    private void limparCamposLivros() {
+        editTitulo.setText("");
+        editPaginas.setText("");
+    }
+
     @Override
     public void onClick(View view) {
         Livro livro = new Livro();
@@ -93,6 +103,8 @@ public class MainActivity extends Activity implements View.OnClickListener{
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(MainActivity.this, "Livro Salvo!", Toast.LENGTH_SHORT).show();
+                limparCamposLivros();
+                carregarListaDeLivros();
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
